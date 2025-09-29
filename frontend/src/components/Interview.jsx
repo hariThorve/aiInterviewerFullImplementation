@@ -1,10 +1,10 @@
 /**
  * AI Interview Component - Main Interview Interface
- * 
+ *
  * This is the core component that handles the AI-powered interview session.
  * It integrates with Vapi AI for voice interaction, TensorFlow.js for face detection,
  * and provides a modern, premium UI with real-time feedback and evaluation.
- * 
+ *
  * Key Features:
  * - Real-time AI voice conversation using Vapi API
  * - Live webcam feed with face detection monitoring
@@ -13,31 +13,31 @@
  * - Real-time transcript capture and formatting
  * - Automatic interview evaluation using AI
  * - Performance tracking and database updates
- * 
+ *
  * Technical Integrations:
  * - Vapi AI: Voice conversation and speech recognition
  * - TensorFlow.js: Face detection and monitoring
  * - Groq API: Interview evaluation and scoring
  * - Axios: HTTP requests for data persistence
- * 
+ *
  * UI Components:
  * - AI Assistant panel with avatar and status indicators
  * - User webcam panel with live video feed
  * - Control panel with status and end interview button
  * - Neon border animation system for visual feedback
- * 
+ *
  * State Management:
  * - vapi: Vapi AI instance for voice interaction
  * - isConnected: Connection status with Vapi
  * - isSpeaking: AI speaking status for animations
  * - transcript: Real-time conversation transcript
  * - detector: TensorFlow face detection model
- * 
+ *
  * @param {string} apiKey - Vapi AI API key from environment variables
  * @param {string} assistantId - Vapi AI assistant ID for interview configuration
  * @param {string} userId - Database user ID for performance tracking
  * @param {Object} config - Vapi configuration with personalized variables
- * 
+ *
  * @author AI Interview Platform Team
  * @version 1.0.0
  */
@@ -53,6 +53,8 @@ import "@tensorflow/tfjs-backend-webgl";
 import * as faceDetection from "@tensorflow-models/face-detection";
 import { TensorBuffer } from "@tensorflow/tfjs-core";
 import * as tf from "@tensorflow/tfjs";
+import { Grid } from "ldrs/react";
+import "ldrs/react/Grid.css";
 
 const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
   const [vapi, setVapi] = useState(null);
@@ -193,7 +195,7 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
 
     return transcriptString;
   }
-  
+
   useEffect(() => {
     const vapiInstance = new Vapi(apiKey);
     setVapi(vapiInstance);
@@ -298,7 +300,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            background: "radial-gradient(circle at center, rgba(18,165,148,0.05) 0%, transparent 70%)",
+            background:
+              "radial-gradient(circle at center, rgba(18,165,148,0.05) 0%, transparent 70%)",
           }}
         >
           <div
@@ -309,9 +312,11 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
               gap: "32px",
               padding: "48px",
               borderRadius: "24px",
-              background: "linear-gradient(145deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.6) 100%)",
+              background:
+                "linear-gradient(145deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.6) 100%)",
               border: "1px solid rgba(148,163,184,0.2)",
-              boxShadow: "0 25px 50px -12px rgba(0,0,0,0.8), 0 0 60px rgba(18,165,148,0.1)",
+              boxShadow:
+                "0 25px 50px -12px rgba(0,0,0,0.8), 0 0 60px rgba(18,165,148,0.1)",
               backdropFilter: "blur(16px)",
             }}
           >
@@ -330,12 +335,15 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
             >
               Ready for your
               <br />
-              <span style={{
-                background: "linear-gradient(135deg, #12A594 0%, #22d3ee 100%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}>
+              <span
+                style={{
+                  background:
+                    "linear-gradient(135deg, #12A594 0%, #22d3ee 100%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
                 AI Interview?
               </span>
             </div>
@@ -359,7 +367,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                 overflow: "hidden",
               }}
               onMouseOver={(e) => {
-                e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
+                e.currentTarget.style.transform =
+                  "translateY(-3px) scale(1.02)";
                 e.currentTarget.style.boxShadow =
                   "0 25px 50px rgba(18, 165, 148, 0.5), inset 0 1px 0 rgba(255,255,255,0.3)";
               }}
@@ -416,11 +425,13 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
               <div
                 style={{
                   position: "relative",
-                  background: "linear-gradient(145deg, rgba(15,23,42,0.9) 0%, rgba(30,41,59,0.8) 100%)",
+                  background:
+                    "linear-gradient(145deg, rgba(15,23,42,0.9) 0%, rgba(30,41,59,0.8) 100%)",
                   borderRadius: "20px",
                   overflow: "hidden",
                   border: "1px solid rgba(148,163,184,0.2)",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(148,163,184,0.1)",
+                  boxShadow:
+                    "0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(148,163,184,0.1)",
                   backdropFilter: "blur(20px)",
                   zIndex: 1,
                 }}
@@ -436,7 +447,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                         left: "0",
                         right: "0",
                         height: "4px",
-                        background: "linear-gradient(90deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
+                        background:
+                          "linear-gradient(90deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
                         animation: "neonBorderFlow 2s linear infinite",
                         zIndex: -1,
                       }}
@@ -449,7 +461,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                         right: "-2px",
                         bottom: "0",
                         width: "4px",
-                        background: "linear-gradient(180deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
+                        background:
+                          "linear-gradient(180deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
                         animation: "neonBorderFlow 2s linear infinite 0.5s",
                         zIndex: -1,
                       }}
@@ -462,7 +475,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                         left: "0",
                         right: "0",
                         height: "4px",
-                        background: "linear-gradient(270deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
+                        background:
+                          "linear-gradient(270deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
                         animation: "neonBorderFlow 2s linear infinite 1s",
                         zIndex: -1,
                       }}
@@ -475,14 +489,15 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                         left: "-2px",
                         bottom: "0",
                         width: "4px",
-                        background: "linear-gradient(0deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
+                        background:
+                          "linear-gradient(0deg, transparent, #00ff88, #00ffff, #00ff88, transparent)",
                         animation: "neonBorderFlow 2s linear infinite 1.5s",
                         zIndex: -1,
                       }}
                     />
                   </>
                 )}
-                
+
                 <div
                   style={{
                     position: "absolute",
@@ -504,8 +519,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                       width: "12px",
                       height: "12px",
                       borderRadius: "50%",
-                      background: isSpeaking 
-                        ? "linear-gradient(45deg, #ef4444, #f97316)" 
+                      background: isSpeaking
+                        ? "linear-gradient(45deg, #ef4444, #f97316)"
                         : "linear-gradient(45deg, #10b981, #06d6a0)",
                       boxShadow: isSpeaking
                         ? "0 0 20px #ef4444, 0 0 40px rgba(239,68,68,0.5)"
@@ -526,7 +541,7 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                     AI Interviewer
                   </div>
                 </div>
-                
+
                 <div
                   style={{
                     height: "100%",
@@ -546,8 +561,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                       background: isSpeaking
                         ? "linear-gradient(135deg, rgba(18,165,148,0.3), rgba(6,182,212,0.2))"
                         : "linear-gradient(135deg, rgba(18,165,148,0.2), rgba(99,102,241,0.15))",
-                      border: isSpeaking 
-                        ? "2px solid rgba(18,165,148,0.6)" 
+                      border: isSpeaking
+                        ? "2px solid rgba(18,165,148,0.6)"
                         : "1px solid rgba(148,163,184,0.3)",
                       boxShadow: isSpeaking
                         ? "0 0 40px rgba(18,165,148,0.4), inset 0 0 60px rgba(18,165,148,0.2)"
@@ -559,7 +574,7 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                       overflow: "hidden",
                     }}
                   >
-                    <img
+                    {/* <img
                       src="src/components/avatarImage.png"
                       alt="AI Assistant Avatar"
                       style={{
@@ -567,12 +582,17 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                         height: "90%",
                         borderRadius: "12px",
                         objectFit: "cover",
-                        filter: isSpeaking 
-                          ? "brightness(1.1) saturate(1.2)" 
+                        filter: isSpeaking
+                          ? "brightness(1.1) saturate(1.2)"
                           : "brightness(1) saturate(1)",
                         transition: "filter 0.3s ease",
                       }}
-                    />
+                    />*/}
+                    {isSpeaking ? (
+                      <Grid size="60" speed="1.5" color="black" />
+                    ) : (
+                      <Grid size="60" speed="0" color="black" />
+                    )}
                   </div>
                 </div>
               </div>
@@ -581,11 +601,13 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
               <div
                 style={{
                   position: "relative",
-                  background: "linear-gradient(145deg, rgba(15,23,42,0.9) 0%, rgba(30,41,59,0.8) 100%)",
+                  background:
+                    "linear-gradient(145deg, rgba(15,23,42,0.9) 0%, rgba(30,41,59,0.8) 100%)",
                   borderRadius: "20px",
                   overflow: "hidden",
                   border: "1px solid rgba(148,163,184,0.2)",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(148,163,184,0.1)",
+                  boxShadow:
+                    "0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(148,163,184,0.1)",
                   backdropFilter: "blur(20px)",
                 }}
               >
@@ -625,11 +647,13 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 gap: "20px",
-                background: "linear-gradient(145deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.9) 100%)",
+                background:
+                  "linear-gradient(145deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.9) 100%)",
                 border: "1px solid rgba(148,163,184,0.2)",
                 borderRadius: "20px",
                 padding: "20px 24px",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(148,163,184,0.1)",
+                boxShadow:
+                  "0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(148,163,184,0.1)",
                 backdropFilter: "blur(20px)",
               }}
             >
@@ -674,7 +698,8 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
               <button
                 onClick={endCall}
                 style={{
-                  background: "linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)",
+                  background:
+                    "linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)",
                   color: "#ffffff",
                   border: "none",
                   borderRadius: "14px",
@@ -683,17 +708,21 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                   fontWeight: 700,
                   cursor: "pointer",
                   letterSpacing: "0.05em",
-                  boxShadow: "0 10px 30px rgba(220,38,38,0.4), inset 0 1px 0 rgba(255,255,255,0.2)",
+                  boxShadow:
+                    "0 10px 30px rgba(220,38,38,0.4), inset 0 1px 0 rgba(255,255,255,0.2)",
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   textTransform: "uppercase",
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px) scale(1.05)";
-                  e.currentTarget.style.boxShadow = "0 15px 35px rgba(220,38,38,0.5), inset 0 1px 0 rgba(255,255,255,0.3)";
+                  e.currentTarget.style.transform =
+                    "translateY(-2px) scale(1.05)";
+                  e.currentTarget.style.boxShadow =
+                    "0 15px 35px rgba(220,38,38,0.5), inset 0 1px 0 rgba(255,255,255,0.3)";
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = "translateY(0) scale(1)";
-                  e.currentTarget.style.boxShadow = "0 10px 30px rgba(220,38,38,0.4), inset 0 1px 0 rgba(255,255,255,0.2)";
+                  e.currentTarget.style.boxShadow =
+                    "0 10px 30px rgba(220,38,38,0.4), inset 0 1px 0 rgba(255,255,255,0.2)";
                 }}
               >
                 End Interview
@@ -705,28 +734,28 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
 
       <style>{`
         @keyframes neonBorderFlow {
-          0% { 
+          0% {
             opacity: 0;
             transform: scaleX(0);
           }
-          50% { 
+          50% {
             opacity: 1;
             transform: scaleX(1);
           }
-          100% { 
+          100% {
             opacity: 0;
             transform: scaleX(0);
           }
         }
-        
+
         @keyframes statusPulse {
-          0%, 100% { 
-            transform: scale(1); 
-            opacity: 1; 
+          0%, 100% {
+            transform: scale(1);
+            opacity: 1;
           }
-          50% { 
-            transform: scale(1.2); 
-            opacity: 0.8; 
+          50% {
+            transform: scale(1.2);
+            opacity: 0.8;
           }
         }
       `}</style>
