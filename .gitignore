@@ -13,3 +13,5 @@ backend/.env
 frontend/.env.*
 backend/.env.*
 
+liveCamphotots/
+profilePicture/
