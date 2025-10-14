@@ -8,6 +8,7 @@ export default function Form({ onSubmit }) {
     name: "",
     email: "",
     phoneNumber: "",
+    role: "",
     performanceDetails: "pending",
   });
 
@@ -18,6 +19,7 @@ export default function Form({ onSubmit }) {
   const [profilePhotoPath, setProfilePhotoPath] = useState(null);
 
   const handleChange = (e) => {
+    console.log(formData);
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // Clear error when user starts typing
     if (errors[e.target.name]) {
@@ -85,6 +87,10 @@ export default function Form({ onSubmit }) {
       newErrors.phoneNumber = "Phone number is required";
     } else if (!/^\d{10}$/.test(formData.phoneNumber.replace(/\D/g, ""))) {
       newErrors.phoneNumber = "Phone number must be 10 digits";
+    }
+
+    if (!formData.role) {
+      newErrors.role = "Please select a position";
     }
 
     return newErrors;
@@ -176,7 +182,7 @@ export default function Form({ onSubmit }) {
         }
       }
       
-      onSubmit(formData.name, res.data.id, uploadedPhotoPath);
+      onSubmit(formData.name, res.data.id, formData.role, uploadedPhotoPath);
 
       // Navigate to interview page after successful submission
       // navigate("/interview");
@@ -381,6 +387,83 @@ export default function Form({ onSubmit }) {
                     />
                   </svg>
                   {errors.phoneNumber}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Position <span className="text-red-500">*</span>
+              </label>
+              <div className="grid grid-cols-3 gap-4">
+                <label className={`relative flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                  formData.role === 'RN'
+                    ? 'border-indigo-500 bg-indigo-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="RN"
+                    checked={formData.role === 'RN'}
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                  <span className={`font-medium ${
+                    formData.role === 'RN' ? 'text-indigo-600' : 'text-gray-700'
+                  }`}>RN</span>
+                </label>
+
+                <label className={`relative flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                  formData.role === 'LPN'
+                    ? 'border-indigo-500 bg-indigo-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="LPN"
+                    checked={formData.role === 'LPN'}
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                  <span className={`font-medium ${
+                    formData.role === 'LPN' ? 'text-indigo-600' : 'text-gray-700'
+                  }`}>LPN</span>
+                </label>
+
+                <label className={`relative flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                  formData.role === 'HCA'
+                    ? 'border-indigo-500 bg-indigo-50'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="HCA"
+                    checked={formData.role === 'HCA'}
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                  <span className={`font-medium ${
+                    formData.role === 'HCA' ? 'text-indigo-600' : 'text-gray-700'
+                  }`}>HCA</span>
+                </label>
+              </div>
+              {errors.role && (
+                <p className="mt-2 text-sm text-red-600 flex items-center">
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {errors.role}
                 </p>
               )}
             </div>

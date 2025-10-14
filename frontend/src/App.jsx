@@ -31,17 +31,33 @@ function App() {
   const [view, setView] = useState('form') // Current view: 'form', 'validate', or 'interview'
   const [userId, setUserId] = useState(null); // Database ID for performance tracking
   const [photoPath, setPhotoPath] = useState(null); // Path to uploaded profile photo
+  const [position, setPosition] = useState('');
+  const getAssistantId = () => {
+    switch (position) {
+      case 'RN':
+        return import.meta.env.VITE_VAPI_RN_ASSISTANT_ID;
+      case 'LPN':
+        return import.meta.env.VITE_VAPI_LPN_ASSISTANT_ID;
+      case 'HCA':
+        return import.meta.env.VITE_VAPI_HCA_ASSISTANT_ID;
+      default:
+        return '';
+    }
+  };
+
   
   /**
    * Handles form submission and transitions to validation view
    * @param {string} name - Candidate's name
    * @param {string} id - Database user ID
    * @param {string} photoPath - Path to uploaded profile photo
+   * @param {string} role - Candidate's selected role
    */
-  const handleFormSubmit = (name, id, photoPath) => {
+  const handleFormSubmit = (name, id, role, photoPath) => {
     setCandidateName(name)
     setView('validate')
     setUserId(id)
+    setPosition(role)
     setPhotoPath(photoPath)
   }
 
@@ -60,7 +76,7 @@ function App() {
       {view === 'interview' && (
         <Interview 
           apiKey={import.meta.env.VITE_VAPI_API_KEY}
-          assistantId={import.meta.env.VITE_VAPI_ASSISTANT_ID}
+          assistantId={getAssistantId()}
           userId={userId}
           config={{
             "variableValues": {

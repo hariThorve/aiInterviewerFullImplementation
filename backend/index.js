@@ -29,9 +29,9 @@ app.get("/", (req, res) => {
 
 app.post("/users", async (req, res, next) => {
   try {
-    const { name, email, phoneNumber, performanceDetails } = req.body;
+    const { name, email, phoneNumber, role, performanceDetails } = req.body;
 
-    if (!name || !email || !phoneNumber || !performanceDetails) {
+    if (!name || !email || !phoneNumber || !role || !performanceDetails) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
@@ -39,6 +39,7 @@ app.post("/users", async (req, res, next) => {
       name,
       email,
       phoneNumber,
+      role,
       performanceDetails,
     });
     return res.status(201).json({ id: user._id, user });
