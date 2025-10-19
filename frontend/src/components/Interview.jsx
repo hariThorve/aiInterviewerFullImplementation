@@ -55,6 +55,8 @@ import { TensorBuffer } from "@tensorflow/tfjs-core";
 import * as tf from "@tensorflow/tfjs";
 import { Grid } from "ldrs/react";
 import "ldrs/react/Grid.css";
+import avatarGif from "./avaratar.gif";
+import avatarStill from "./avataar.png";
 
 const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
   const [vapi, setVapi] = useState(null);
@@ -554,9 +556,9 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                 >
                   <div
                     style={{
-                      width: isSpeaking ? "280px" : "260px",
-                      height: isSpeaking ? "300px" : "280px",
-                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                      width: "320px",
+                      height: "320px",
+                      transition: "width 0.5s, height 0.5s, box-shadow 0.5s",
                       borderRadius: "16px",
                       background: isSpeaking
                         ? "linear-gradient(135deg, rgba(18,165,148,0.3), rgba(6,182,212,0.2))"
@@ -574,28 +576,40 @@ const Interview = ({ apiKey, assistantId, userId, config = {} }) => {
                       overflow: "hidden",
                     }}
                   >
-                    {/* <img
-                      src="src/components/avatarImage.png"
-                      alt="AI Assistant Avatar"
+                    <img
+                      src={isSpeaking ? avatarGif : avatarStill}
+                      alt={isSpeaking ? "AI Avatar Animated" : "AI Avatar Still"}
                       style={{
-                        width: "90%",
-                        height: "90%",
-                        borderRadius: "12px",
+                        width: "100%",
+                        height: "100%",
                         objectFit: "cover",
-                        filter: isSpeaking
-                          ? "brightness(1.1) saturate(1.2)"
-                          : "brightness(1) saturate(1)",
-                        transition: "filter 0.3s ease",
+                        position: "absolute",
+                        left: 0,
+                        top: 0,
+                        opacity: isSpeaking ? 1 : 0,
+                        transition: "opacity 0.5s cubic-bezier(0.4,0,0.2,1)",
+                        zIndex: isSpeaking ? 2 : 1,
                       }}
-                    />*/}
-                    {isSpeaking ? (
-                      <Grid size="60" speed="1.5" color="black" />
-                    ) : (
-                      <Grid size="60" speed="0" color="black" />
-                    )}
+                    />
+                    <img
+                      src={avatarStill}
+                      alt="AI Avatar Still"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        position: "absolute",
+                        left: 0,
+                        top: 0,
+                        opacity: isSpeaking ? 0 : 1,
+                        transition: "opacity 0.5s cubic-bezier(0.4,0,0.2,1)",
+                        zIndex: isSpeaking ? 1 : 2,
+                      }}
+                    />
                   </div>
                 </div>
               </div>
+
 
               {/* User webcam tile */}
               <div
